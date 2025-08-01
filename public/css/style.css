@@ -1,0 +1,563 @@
+  body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+        }
+
+        .hero-wrapper {
+            position: relative;
+            margin: 50px 100px;
+        }
+
+        .hero-section {
+            position: relative;
+            background: linear-gradient(to right, #f9d6e6, #f3a8d1);
+            border-radius: 25px;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            border-radius: 20px;
+        }
+
+        .check-status {
+            position: relative;
+            background: #fff;
+            padding: 25px;
+            margin: auto;
+            margin-top: -80px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            width: 88%;
+            max-width: 1170px;
+        }
+
+        .swiper-slide {
+            height: 45em;
+        }
+
+        .bggambar {
+            height: 40em;
+        }
+
+        .bggambar img {
+            padding: 55px;
+        }
+
+        .text-dark {
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .bton-arrow-active {
+            background-color: #42BBF7;
+            color: white;
+            width: 60px;
+            font-size: 30px;
+            margin-right: 40px;
+            padding: 4px;
+            border-radius: 42%;
+        }
+
+        .bton-arrow {
+            color: white;
+            width: 60px;
+            font-size: 30px;
+            margin-right: 40px;
+            padding: 4px;
+            border-radius: 42%;
+        }
+
+        .judul {
+            font-size: 3.5rem;
+        }
+
+        /* nav–link biasa */
+        .nav-link {
+            color: #212529;
+            /* abu pekat */
+            text-decoration: none;
+            padding-bottom: .25rem;
+        }
+
+        /* nav–link yang sedang aktif */
+        .nav-link.active {
+            color: #d63384;
+            /* pink/merah Ibu Digi */
+            border-bottom: 2px solid #d63384;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-wrapper {
+                margin: 20px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 2rem !important;
+                text-align: center;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .judul {
+                font-size: 1.75rem;
+            }
+
+            .swiper-slide,
+            .bggambar {
+                height: auto;
+            }
+
+            .bggambar img {
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .swiper-slide {
+                height: 45em;
+            }
+
+            .bggambar {
+                height: 40em;
+            }
+        }
+
+        .contentisi {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .bton-arrow,
+        .bton-arrow-active {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Aktif = tombol putih */
+        .bton-arrow-active {
+            background-color: #42BBF7;
+            color: white;
+            border: none;
+        }
+
+        /* Default = tombol abu */
+        .bton-arrow {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        @media (min-width: 1200px) {
+            .fs-4 {
+                font-size: 2.5rem !important;
+            }
+        }
+
+        .about h3 {
+            font-size: 46px
+        }
+
+        .about p {
+            font-size: 30px
+        }
+
+        /* Responsive positioning */
+        @media (max-width: 1024px) {
+            .about h3 {
+                font-size: 1.75rem !important;
+                /* Lebih kecil dari 46px */
+            }
+
+            .about p {
+                font-size: 1.1rem !important;
+                /* Lebih kecil dari 30px */
+            }
+
+            .card-footer {
+                display: flex;
+                justify-content: flex-end !important;
+                padding-top: 0.5rem;
+            }
+
+            .bton-arrow,
+            .bton-arrow-active {
+                font-size: 20px;
+                width: 40px;
+                height: 40px;
+                margin-right: 0px;
+            }
+        }
+
+
+        .form-control.cat{
+            background-color: #f3a8d1;
+            color: #fff;
+            padding: 15px;
+
+        }
+.card-img-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+  .vaccine-search-wrapper * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .vaccine-search-wrapper {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #CBEEFF 0%, #E0F2FF 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .vaccine-search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .vaccine-form-section {
+            flex: 0 0 400px;
+            padding-top: 40px;
+        }
+
+        .vaccine-form-title {
+            color: #2D3748;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .vaccine-form-group {
+            margin-bottom: 25px;
+        }
+
+        .vaccine-form-input {
+            width: 100%;
+            padding: 22px 25px;
+            border: none;
+            border-radius: 30px;
+            background: #F4ADCD;
+            font-size: 17px;
+            color: #2D3748;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+        }
+
+        .vaccine-form-input::placeholder {
+            color: rgba(45, 55, 72, 0.7);
+            font-style: italic;
+        }
+
+        .vaccine-form-input:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(244, 173, 205, 0.4);
+            background: #F2A2C7;
+        }
+
+        .vaccine-calendar-section {
+            flex: 0 0 420px;
+        }
+
+        .vaccine-calendar-container {
+            background: linear-gradient(135deg, #F4ADCD 0%, #F8BBD0 100%);
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(244, 173, 205, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vaccine-calendar-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            pointer-events: none;
+        }
+
+        .vaccine-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vaccine-nav-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 22px;
+            color: #2D3748;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .vaccine-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+        }
+
+        .vaccine-month-year {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2D3748;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .vaccine-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vaccine-day-header {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4A5568;
+            padding: 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .vaccine-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2D3748;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .vaccine-day-cell:hover:not(.vsc-other-month) {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .vaccine-day-cell.vsc-selected,
+        .vaccine-day-cell.vsc-range-start,
+        .vaccine-day-cell.vsc-range-end {
+            background: #8B4B8C;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(139, 75, 140, 0.4);
+        }
+
+        .vaccine-day-cell.vsc-in-range {
+            background: rgba(139, 75, 140, 0.3);
+            color: #2D3748;
+            font-weight: 600;
+        }
+
+        .vaccine-day-cell.vsc-other-month {
+            color: rgba(45, 55, 72, 0.3);
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .vaccine-search-section {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vaccine-search-container {
+            position: relative;
+        }
+
+        .vaccine-search-input {
+            width: 100%;
+            padding: 18px 25px;
+            padding-right: 60px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            color: #2D3748;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .vaccine-search-input::placeholder {
+            color: rgba(45, 55, 72, 0.6);
+        }
+
+        .vaccine-search-input:focus {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .vaccine-search-btn {
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #2D3748;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .vaccine-search-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .vaccine-selected-dates {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            font-size: 15px;
+            color: #2D3748;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .vaccine-date-range-display {
+            font-weight: 700;
+            color: #8B4B8C;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .vaccine-submit-btn {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, #8B4B8C 0%, #A855A4 100%);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .vaccine-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(139, 75, 140, 0.4);
+            background: linear-gradient(135deg, #7C3A7D 0%, #9333EA 100%);
+        }
+
+        .vaccine-clear-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+            border-radius: 15px;
+            color: #2D3748;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .vaccine-clear-btn:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .vaccine-hidden-input {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .vaccine-search-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .vaccine-form-section {
+                flex: none;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .vaccine-calendar-section {
+                flex: none;
+                width: 100%;
+                max-width: 450px;
+            }
+
+            .vaccine-form-title {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vaccine-search-wrapper {
+                padding: 20px 15px;
+            }
+
+            .vaccine-form-title {
+                font-size: 2rem;
+            }
+
+            .vaccine-calendar-container {
+                padding: 25px;
+            }
+        }
