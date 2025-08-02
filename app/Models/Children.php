@@ -20,6 +20,7 @@ class Children extends Model
         'name',
         'date_of_birth',
         'NIK',
+        'gender',
         'weight',
         'height',
         'medical_history',

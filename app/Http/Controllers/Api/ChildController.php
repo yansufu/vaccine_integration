@@ -91,7 +91,8 @@ class ChildController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'string|max:255',
             'date_of_birth' => 'date',
-            'NIK' => 'NIK',
+            'NIK' => 'string|max:255',
+            'gender' => 'string|max:255',
             'weight' => 'numeric',
             'height' => 'numeric',
             'medical_history' => 'string|max:500',
@@ -108,6 +109,7 @@ class ChildController extends Controller
             'name',
             'date_of_birth',
             'NIK',
+            'gender',
             'weight',
             'height',
             'medical_history',

@@ -21,6 +21,7 @@ class ChildResource extends JsonResource
             'name' => $this->name,
             'date_of_birth' => $this->date_of_birth,
             'NIK' => $this->NIK,
+            'gender' => $this->gender,
             'weight' => $this->weight,
             'height' => $this->height,
             'medical_history' => $this->medical_history,

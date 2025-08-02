@@ -16,6 +16,8 @@ class Vaccinations extends Model
     'prov_id',
     'vaccine_id',
     'lot_id',
+    'location',
+    'note',
     'is_completed',
     ];
 
