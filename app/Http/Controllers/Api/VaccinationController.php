@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Vaccinations;
 use App\Models\Providers;
+use App\Models\Children;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\VaccinationResource;
 use Illuminate\Support\Facades\Hash;
@@ -78,6 +79,13 @@ class VaccinationController extends Controller
     {
         $vaccination = Vaccinations::with(['vaccine', 'provider.organization'])->where('child_id', $child_id)->get();
         return response()->json($vaccination);
+    }
+
+    public function getProviderVaccinations($providerId)
+    {
+        $vaccinations = Vaccinations::with(['vaccine', 'child', 'provider.organization'])->where('prov_id', $providerId)->get();
+
+        return response()->json($vaccinations);
     }
 
 

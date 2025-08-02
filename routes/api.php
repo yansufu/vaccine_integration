@@ -53,6 +53,8 @@ Route::get('/child/{child_id}/vaccinations/nextStatus', [ChildController::class,
 
 Route::get('/child/{child_id}/vaccinations', [VaccinationController::class, 'getChildVaccinations']);
 
+Route::get('/provider/{providerId}/vaccinations', [VaccinationController::class, 'getProviderVaccinations']);
+
 Route::put('/child/{child_id}/vaccinations/scan', [VaccinationController::class, 'updateAfterScan']);
 
 Route::apiResource('category', CategoryController::class);
