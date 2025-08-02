@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Vaccinations;
+use App\Models\Providers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\VaccinationResource;
 use Illuminate\Support\Facades\Hash;
@@ -34,27 +35,40 @@ class VaccinationController extends Controller
 
     public function updateAfterScan(Request $request, $child_id)
     {
-        $validation = $request->validate([
-            'vaccine_id' => 'required|exists:vaccine,id',
-            'prov_id' => 'required|exists:provider,id',
-            'lot_id' => 'required|string',
-            'location' => 'nullable|string', 
-            'note' => 'nullable|string',
-        ]);
+        $data = $request->all();
+        if (!is_array($data)) {
+            return response()->json(['error' => 'Invalid payload format. Expected an array.'], 400);
+        }
+        foreach ($data as $entry) {
+            $validator = Validator::make($entry, [
+                'vaccine_id' => 'required|integer|max:20',
+                'prov_id' => 'required|integer|max:20',
+                'lot_id' => 'required|string|max:255',
+                'notes' => 'nullable|string|max:255',
+                //'location' => 'nullable|string', 
+            ]);
 
-        $vaccination = Vaccinations::where('child_id', $child_id)
-            ->where('vaccine_id', $validation['vaccine_id'])
-            ->firstOrFail();
+            if($validator->fails()){
+                return response()->json(
+                ['message' => 'invalid data format', 'errors' => $validator->errors()], 422);
+            };
 
-        $provider = Provider::findOrFail($validation['prov_id']);
+            $validated = $validator->validated();
 
-        $vaccination->update([
-            'is_completed' => true,
-            'lot_id' => $validation['lot_id'],
-            'prov_id' => $validation['prov_id'],
-            'location' => $validation['location'] ?? null,
-            'note' => $validation['note'] ?? null,
-        ]);
+            $vaccination = Vaccinations::where('child_id', $child_id)
+                ->where('vaccine_id', $validated['vaccine_id'])
+                ->firstOrFail();
+
+            $provider = Providers::findOrFail($validated['prov_id']);
+
+            $vaccination->update([
+                'is_completed' => true,
+                'lot_id' => $entry['lot_id'],
+                'prov_id' => $entry['prov_id'],
+                'notes' => $entry['notes'] ?? null,
+                //'location' => $request['location'] ?? null,
+            ]);
+        }
 
         return response()->json($vaccination, 200);
     }
