@@ -145,6 +145,7 @@ class ChildController extends Controller
         $dob = new \Carbon\Carbon($child->date_of_birth);
         $now = now();
         $ageInMonths  = $dob->diffInMonths($now);
+        $ageInMonths  = (int)$ageInMonths;
         $ageInDays  = $dob->diffInDays($now) % 30 ; //because we dont wanna get the child from birth, we just wanna know the remaining days from 30 days
 
         $ageString = "$ageInMonths months, $ageInDays days";
@@ -177,7 +178,9 @@ class ChildController extends Controller
         $child = Children::findOrFail($child_id);
         $dob = new \Carbon\Carbon($child->date_of_birth);
         $now = now();
-        $ageInMonths  = ($dob->diffInMonths($now)) + 1;
+        $ageInMonths  = $dob->diffInMonths($now);
+        $ageInMonths  = (int)$ageInMonths;
+        $ageInMonths  = $ageInMonths + 1;
 
         $vaccineThisMonth = Vaccines::where('period', $ageInMonths)->get();
 
