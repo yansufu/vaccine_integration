@@ -6,10 +6,12 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\forgotPasswordController;
 
 use App\Models\Children;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/new', [UserController::class, 'new'])->name('new');
@@ -23,4 +25,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('/register', [LoginController::class, 'register'])->name('register');
 Route::get('/forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('password.request');
+
 Route::post('/forgot-password', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
+// Show the reset password form (user clicks from email)
+Route::get('/reset-password/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
+
+// Handle the form submission to reset password
+Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name('password.update');
+

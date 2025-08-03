@@ -133,10 +133,22 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <button type="submit" class="btn btn-warning">Send Reset Link</button>
+              @if (session('status'))
+                  <div class="alert alert-success">
+                      {{ session('status') }}
+                  </div>
+              @endif
+
+              @if ($errors->has('email'))
+                  <div class="alert alert-danger">
+                      {{ $errors->first('email') }}
+                  </div>
+              @endif
               <a href="#" id="back-to-login-from-forgot" class="text-decoration-none">Back to login</a>
             </div>
           </form>
         </div>
+
 
         {{-- Register Form --}}
         <div id="register-form" style="display: none;">
