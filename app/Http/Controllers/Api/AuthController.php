@@ -42,14 +42,14 @@ class AuthController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:parents,email',
+            'email' => 'required|email|exists:parent,email',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => 'Invalid email address.'], 422);
         }
 
-        $status = Password::broker('parents')->sendResetLink(
+        $status = Password::broker('parent')->sendResetLink(
             $request->only('email')
         );
 
