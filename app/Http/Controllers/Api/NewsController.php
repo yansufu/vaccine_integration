@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,7 +17,14 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::all();
-        return view('news.index', compact('news'));
+        if($news->count() > 0)
+        {
+            return NewsResource::collection($news);
+        }
+        else
+        {
+            return response()->json(['message' => 'No Data'], 200);
+        }
     }
 
     /**
@@ -43,15 +51,26 @@ class NewsController extends Controller
         $news->content = $validated['content'];
 
         if ($request->hasFile('image')) {
+            \Log::info('Image received');
             $image = $request->file('image');
+            \Log::info('Original name: ' . $image->getClientOriginalName());
+            \Log::info('Extension: ' . $image->getClientOriginalExtension());
             $imageName = time() . '_' . Str::slug($validated['title']) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/news_images', $imageName);
+            \Log::info('Stored path: ' . $image);
+            Storage::disk('public')->putFileAs('news_images', $image, $imageName);
+
             $news->image = $imageName;
         }
+      
 
         $news->save();
 
-        return redirect()->route('news.index')->with('success', 'News has been saved successfully.');
+        
+
+        return response()->json(
+            ['message' => 'data created successfully',
+            'Data' => new NewsResource($news)], 200);
     }
 
     /**

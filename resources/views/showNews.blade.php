@@ -13,6 +13,6 @@
         {!! nl2br(e($news->content)) !!}
     </div>
 
-    <a href="{{ route('news.index') }}" class="btn btn-secondary mt-3">Back to News List</a>
+    <a href="{{ route('new') }}" class="btn btn-secondary mt-3">Back to News List</a>
 </div>
 @endsection
