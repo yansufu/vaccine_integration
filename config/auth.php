@@ -64,7 +64,7 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'parent' => [
+        'parents' => [
         'driver' => 'eloquent',
         'model' => App\Models\Parents::class,
     ],
@@ -101,8 +101,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'parent' => [
-        'provider' => 'parent',
+        'parents' => [
+        'provider' => 'parents',
         'table' => 'password_resets',
         'expire' => 60,
     ],

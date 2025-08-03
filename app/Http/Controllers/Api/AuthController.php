@@ -49,7 +49,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid email address.'], 422);
         }
 
-        $status = Password::broker('parent')->sendResetLink(
+        $status = Password::broker('parents')->sendResetLink(
             $request->only('email')
         );
 
