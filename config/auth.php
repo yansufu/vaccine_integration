@@ -67,7 +67,8 @@ return [
         'parents' => [
         'driver' => 'eloquent',
         'model' => App\Models\Parents::class,
-    ],
+        'table' => 'parent',
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
