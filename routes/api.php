@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthProvController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CatalogController;
+use App\Http\Controllers\Api\NewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

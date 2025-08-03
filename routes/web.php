@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [UserController::class, 'index'])->name('home');
-Route::get('/new', [UserController::class, 'new'])->name('new');
-Route::get('/new/{id}', [UserController::class, 'showNews'])->name('showNews');
+// Route::get('/new', [UserController::class, 'new'])->name('new');
+// Route::get('/new/{id}', [UserController::class, 'showNews'])->name('showNews');
 Route::get('/catalog', [UserController::class, 'catalog'])->name('catalog');
 Route::get('/check-health-status', [UserController::class, 'results'])->name('check.results')->middleware('auth');
 
