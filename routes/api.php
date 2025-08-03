@@ -84,3 +84,12 @@ Route::get('/ping', function () {
     return response()->json(['status' => 'OK']);
 });
 
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+
+Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+// Show the reset password form (user clicks from email)
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+
+// Handle the form submission to reset password
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
