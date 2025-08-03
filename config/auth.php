@@ -104,7 +104,7 @@ return [
         ],
         'parents' => [
         'provider' => 'parents',
-        'table' => 'password_resets',
+        'table' => 'parent',
         'expire' => 60,
     ],
     ],
