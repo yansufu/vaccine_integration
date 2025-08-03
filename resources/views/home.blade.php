@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="hero-wrapper">
     <section class="hero-section row">
@@ -214,3 +213,4 @@
   });
 </script>
 
+@endsection
