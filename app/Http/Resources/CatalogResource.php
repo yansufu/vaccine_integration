@@ -14,12 +14,12 @@ class CatalogResource extends JsonResource
             'org_id' => $this->org_id,
             'organization' => [
                 'id' => $this->organization->id,
-                'name' => $this->organization->name,
+                'name' => $this->organization->org_name,
             ],
             'cat_id' => $this->cat_id,
             'category' => [
                 'id' => $this->category->id,
-                'name' => $this->category->name,
+                'name' => $this->category->category,
             ],
             'price' => $this->price,
             'vaccination_date' => $this->vaccination_date,

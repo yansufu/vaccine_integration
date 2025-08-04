@@ -11,7 +11,7 @@ class CatalogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Catalog::with(['organization', 'category']); // Include relationships
+        $query = Catalogs::with(['organization', 'category']); 
 
         if ($request->filled('vaccine_type')) {
             $query->whereHas('category', function ($q) use ($request) {
@@ -34,8 +34,6 @@ class CatalogController extends Controller
         if ($request->wantsJson() || $request->is('api/*')) {
             return response()->json($results);
         }
-
-        return view('catalog.index', compact('results'));
 
         return view('catalog.index', compact('results'));
     }
@@ -69,6 +67,7 @@ class CatalogController extends Controller
                 'vaccination_date' => $catalog['vaccination_date'],
             ]);
 
+            $newCatalog = Catalogs::with(['organization', 'category'])->find($newCatalog->id);
             $createdCatalogs[] = new CatalogResource($newCatalog);
         }
 
