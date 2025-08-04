@@ -11,7 +11,7 @@ class ProviderAuth extends Authenticatable implements CanResetPassword
 {
     use CanResetPasswordTrait, Notifiable;
 
-    protected $table = 'parent'; 
+    protected $table = 'provider'; 
 
     protected $fillable = [
         'name',
