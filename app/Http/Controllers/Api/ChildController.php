@@ -29,6 +29,7 @@ class ChildController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
+            'gender' => 'string|max:255',
             'NIK' => 'string|max:16',
             'weight' => 'numeric',
             'height' => 'numeric',
@@ -46,6 +47,7 @@ class ChildController extends Controller
             'parent_id' => $parent_id,
             'name' => $request->name,
             'date_of_birth' => $request->date_of_birth,
+            'gender' =>$request->gender,
             'NIK' => $request->NIK,
             'weight' => $request->weight,
             'height' => $request->height,
