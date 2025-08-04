@@ -38,7 +38,9 @@ class AuthProvController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'Unregistered email address. Please register first'], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
+
+            //return response()->json(['message' => 'Unregistered email address. Please register first'], 422);
         }
 
         $status = Password::broker('providers')->sendResetLink(
