@@ -110,7 +110,7 @@ return [
         'table' => 'password_resets',
         'expire' => 60,
     ],
-    'providers' => [
+    'provider_user' => [
         'provider' => 'providers',
         'table' => 'password_resets',
         'expire' => 60,
