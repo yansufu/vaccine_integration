@@ -31,6 +31,12 @@ class CatalogController extends Controller
 
         $results = $query->get();
 
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json($results);
+        }
+
+        return view('catalog.index', compact('results'));
+
         return view('catalog.index', compact('results'));
     }
 
