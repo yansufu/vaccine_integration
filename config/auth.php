@@ -67,7 +67,6 @@ return [
         'parents' => [
         'driver' => 'eloquent',
         'model' => App\Models\ParentAuth::class,
-        'table' => 'parent',
         ],
 
         // 'users' => [

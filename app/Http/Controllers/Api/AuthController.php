@@ -47,7 +47,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'Invalid email address.'], 422);
+            return response()->json(['message' => 'Unregistered email address. Please register first'], 422);
         }
 
         $status = Password::broker('parents')->sendResetLink(
