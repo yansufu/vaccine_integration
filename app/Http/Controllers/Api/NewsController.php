@@ -39,38 +39,41 @@ class NewsController extends Controller
      * Store a newly created news item in storage.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title'   => 'required|string|max:255',
-            'content' => 'required|string',
-            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+{
+    $validated = $request->validate([
+        'title'   => 'required|string|max:255',
+        'content' => 'required|string',
+        'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $news = new News();
-        $news->title = $validated['title'];
-        $news->content = $validated['content'];
+    $news = new News();
+    $news->title = $validated['title'];
+    $news->content = $validated['content'];
 
-        if ($request->hasFile('image')) {
-            \Log::info('Image received');
-            $image = $request->file('image');
-            \Log::info('Original name: ' . $image->getClientOriginalName());
-            \Log::info('Extension: ' . $image->getClientOriginalExtension());
-            $imageName = time() . '_' . Str::slug($validated['title']) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/news_images', $imageName);
-            \Log::info('Stored path: ' . $image);
+    if ($request->hasFile('image')) {
+        \Log::info('Image received');
+        $image = $request->file('image');
+        \Log::info('Original name: ' . $image->getClientOriginalName());
+        \Log::info('Extension: ' . $image->getClientOriginalExtension());
 
+        $imageName = time() . '_' . Str::slug($validated['title']) . '.' . $image->getClientOriginalExtension();
+
+        $stored = Storage::disk('public')->putFileAs('news_images', $image, $imageName);
+        \Log::info('Stored: ' . ($stored ? 'yes' : 'no'));
+
+        if ($stored) {
             $news->image = $imageName;
         }
-      
-
-        $news->save();
-
-        
-
-        return response()->json(
-            ['message' => 'data created successfully',
-            'Data' => new NewsResource($news)], 200);
     }
+
+    $news->save();
+
+    return response()->json([
+        'message' => 'Data created successfully',
+        'Data' => new NewsResource($news)
+    ], 200);
+}
+
 
     /**
      * Display the specified news item.
@@ -97,21 +100,29 @@ class NewsController extends Controller
         $news->content = $validated['content'];
 
         if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($news->image && Storage::exists('public/news_images/' . $news->image)) {
-                Storage::delete('public/news_images/' . $news->image);
+            \Log::info('Image received in update');
+
+            if ($news->image && Storage::disk('public')->exists('news_images/' . $news->image)) {
+                Storage::disk('public')->delete('news_images/' . $news->image);
+                \Log::info('Old image deleted: ' . $news->image);
             }
 
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validated['title']) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/news_images', $imageName);
-            $news->image = $imageName;
+
+            $stored = Storage::disk('public')->putFileAs('news_images', $image, $imageName);
+            \Log::info('Stored new image: ' . ($stored ? $imageName : 'failed'));
+
+            if ($stored) {
+                $news->image = $imageName;
+            }
         }
 
         $news->save();
 
         return redirect()->route('news.index')->with('success', 'News has been updated successfully.');
     }
+
 
     /**
      * Remove the specified news item from storage.
