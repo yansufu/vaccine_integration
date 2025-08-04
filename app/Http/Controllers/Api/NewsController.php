@@ -58,7 +58,6 @@ class NewsController extends Controller
             $imageName = time() . '_' . Str::slug($validated['title']) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/news_images', $imageName);
             \Log::info('Stored path: ' . $image);
-            Storage::disk('public')->putFileAs('news_images', $image, $imageName);
 
             $news->image = $imageName;
         }

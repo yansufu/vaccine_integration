@@ -10,7 +10,7 @@ class CatalogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'catalog_id' => $this->id,
             'org_id' => $this->org_id,
             'organization' => [
                 'id' => $this->organization->id,

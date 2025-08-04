@@ -18,7 +18,7 @@ class VaccinationController extends Controller
         if($vaccination->count() > 0)
         {
             return VaccinationResource::collection($vaccination);
-        }
+        }   
         else
         {
             return response()->json(['message' => 'No Data'], 200);
