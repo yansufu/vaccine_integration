@@ -116,6 +116,7 @@ class NewsController extends Controller
             if ($stored) {
                 $news->image = $imageName;
             }
+
         }
 
         $news->save();

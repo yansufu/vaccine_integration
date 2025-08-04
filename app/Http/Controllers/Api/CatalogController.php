@@ -9,17 +9,29 @@ use App\Http\Resources\CatalogResource;
 
 class CatalogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $catalog = Catalogs::get();
-        if($catalog->count() > 0)
-        {
-            return CatalogResource::collection($catalog);
+        $query = Catalog::with(['organization', 'category']); // Include relationships
+
+        if ($request->filled('vaccine_type')) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->vaccine_type . '%');
+            });
         }
-        else
-        {
-            return response()->json(['message' => 'No Data'], 200);
+
+        if ($request->filled('location')) {
+            $query->whereHas('organization', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->location . '%');
+            });
         }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('vaccination_date', $request->date_from);
+        }
+
+        $results = $query->get();
+
+        return view('catalog.index', compact('results'));
     }
 
     public function show(Catalogs $catalog){

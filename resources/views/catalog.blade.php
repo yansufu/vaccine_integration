@@ -21,12 +21,6 @@
                     <div class="vaccine-form-group">
                         <input type="date" name="date_from" class="vaccine-form-input" value="{{ request('date_from') }}">
                     </div>
-
-
-                    <!-- Hidden inputs for date range -->
-                    <input type="hidden" name="date_from" id="dateFromInput" class="vaccine-hidden-input">
-                    <input type="hidden" name="date_to" id="dateToInput" class="vaccine-hidden-input">
-
                     <button type="submit" class="vaccine-submit-btn">Search Appointment</button>
                 </form>
             </div>

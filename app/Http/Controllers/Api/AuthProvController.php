@@ -29,7 +29,7 @@ class AuthProvController extends Controller
             ], 200);
         }
 
-        public function sendResetLinkEmail(Request $request)
+        public function sendResetLinkEmailProv(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:provider,email',
@@ -51,12 +51,12 @@ class AuthProvController extends Controller
     }
 
 
-    public function showResetForm(Request $request, $token)
+    public function showResetFormProv(Request $request, $token)
     {
         return view('auth.reset-password', ['token' => $token, 'email' => $request->email]);
     }
     
-    public function resetPassword(Request $request)
+    public function resetPasswordProv(Request $request)
     {
         $request->validate([
             'token' => 'required',
