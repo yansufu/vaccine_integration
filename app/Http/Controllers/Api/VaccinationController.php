@@ -42,8 +42,8 @@ class VaccinationController extends Controller
         }
         foreach ($data as $entry) {
             $validator = Validator::make($entry, [
-                'vaccine_id' => 'required|integer|max:20',
-                'prov_id' => 'required|integer|max:20',
+                'vaccine_id' => 'required|integer',
+                'prov_id' => 'required|integer',
                 'lot_id' => 'required|string|max:255',
                 'notes' => 'nullable|string|max:255',
                 //'location' => 'nullable|string', 
