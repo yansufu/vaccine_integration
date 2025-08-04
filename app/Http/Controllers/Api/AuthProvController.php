@@ -28,4 +28,55 @@ class AuthProvController extends Controller
                 'provider_id' => $provider->id,
             ], 200);
         }
+
+        public function sendResetLinkEmail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:provider,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Unregistered email address. Please register first'], 422);
+        }
+
+        $status = Password::broker('providers')->sendResetLink(
+            $request->only('email')
+        );
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(['message' => 'Reset link sent to your email.'], 200);
+        } else {
+            return response()->json(['message' => __($status)], 500);
+        }
+    }
+
+
+    public function showResetForm(Request $request, $token)
+    {
+        return view('auth.reset-password', ['token' => $token, 'email' => $request->email]);
+    }
+    
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($parent, $password) {
+                $parent->forceFill([
+                    'password' => Hash::make($password),
+                ])->save();
+
+                event(new PasswordReset($parent));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    }
 }

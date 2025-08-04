@@ -68,6 +68,10 @@ return [
         'driver' => 'eloquent',
         'model' => App\Models\ParentAuth::class,
         ],
+        'providers' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\ProviderAuth::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -103,6 +107,11 @@ return [
         ],
         'parents' => [
         'provider' => 'parents',
+        'table' => 'password_resets',
+        'expire' => 60,
+    ],
+    'providers' => [
+        'provider' => 'providers',
         'table' => 'password_resets',
         'expire' => 60,
     ],

@@ -93,3 +93,13 @@ Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])-
 // Handle the form submission to reset password
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
+
+Route::get('/forgot-password-prov', [AuthProvController::class, 'showForgotPasswordFormProv'])->name('passwordProv.Prov');
+
+Route::post('/forgot-password-prov', [AuthProvController::class, 'sendResetLinkEmailProv'])->name('passwordProv.email');
+// Show the reset password form (user clicks from email)
+Route::get('/reset-password-prov/{token}', [AuthProvController::class, 'showResetFormProv'])->name('passwordProv.reset');
+
+// Handle the form submission to reset password
+Route::post('/reset-password-prov', [AuthProvController::class, 'resetPassword'])->name('passwordProv.update');
+
