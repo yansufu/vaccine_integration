@@ -16,11 +16,11 @@ class AuthController extends Controller
     public function login(Request $request)
         {
             $request->validate([
-                'email' => 'required|email',
+                'NIK' => 'required|string',
                 'password' => 'required',
             ]);
 
-            $parent = Parents::where('email', $request->email)->first();
+            $parent = Parents::where('NIK', $request->NIK)->first();
 
             if (!$parent || !Hash::check($request->password, $parent->password)) {
                 return response()->json(['message' => 'Invalid credentials'], 401);
@@ -37,25 +37,25 @@ class AuthController extends Controller
 
         public function showForgotPasswordForm()
     {
-        return view('auth.passwords.email');
+        return view('auth.passwords.NIK');
     }
 
     public function sendResetLinkEmail(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:parent,email',
+            'NIK' => 'required|NIK|exists:parent,NIK',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'Unregistered email address. Please register first'], 422);
+            return response()->json(['message' => 'Unregistered NIK address. Please register first'], 422);
         }
 
         $status = Password::broker('parents')->sendResetLink(
-            $request->only('email')
+            $request->only('NIK')
         );
 
         if ($status === Password::RESET_LINK_SENT) {
-            return response()->json(['message' => 'Reset link sent to your email.'], 200);
+            return response()->json(['message' => 'Reset link sent to your NIK.'], 200);
         } else {
             return response()->json(['message' => __($status)], 500);
         }
@@ -64,19 +64,19 @@ class AuthController extends Controller
 
     public function showResetForm(Request $request, $token)
     {
-        return view('auth.reset-password', ['token' => $token, 'email' => $request->email]);
+        return view('auth.reset-password', ['token' => $token, 'NIK' => $request->NIK]);
     }
     
     public function resetPassword(Request $request)
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
+            'NIK' => 'required|NIK',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('NIK', 'password', 'password_confirmation', 'token'),
             function ($parent, $password) {
                 $parent->forceFill([
                     'password' => Hash::make($password),
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            : back()->withErrors(['NIK' => [__($status)]]);
     }
 
 }

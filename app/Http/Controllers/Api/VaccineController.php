@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Vaccines;
+use App\Models\Children;
+use App\Models\Vaccinations;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\VaccineResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VaccineController extends Controller
 {
@@ -69,4 +73,48 @@ class VaccineController extends Controller
             'data' => VaccineResource::collection($vaccine)
         ], 200);
     }
+
+    public function getRecommendedVaccinePeriod($child_id, $category)
+    {
+        // 1. Get child's date of birth and calculate age in full months
+        $child = Children::findOrFail($child_id);
+        $dob = Carbon::parse($child->dob);
+        $ageInMonths = $dob->diffInMonths(Carbon::now());
+
+        // 2. Get vaccines by category, ordered by period
+        $vaccines = Vaccines::where('cat_id', $category)
+            ->orderBy('period')
+            ->get();
+
+        if ($vaccines->isEmpty()) {
+            return response()->json(['message' => 'No vaccines found for this category.'], 404);
+        }
+
+        // 3. Fetch completed vaccinations for this child
+        $completedVaccineIds = Vaccinations::where('child_id', $child_id)
+            ->where('is_completed', true)
+            ->whereHas('vaccine', function ($query) use ($category) {
+                $query->where('cat_id', $category);
+            })
+            ->pluck('vaccine_id')
+            ->toArray();
+
+        // 4. Try to find the lowest uncompleted period ≤ age
+        foreach ($vaccines as $vaccine) {
+            if ($vaccine->period <= $ageInMonths && !in_array($vaccine->id, $completedVaccineIds)) {
+                return response()->json(['id' => $vaccine->id, 'period' => $vaccine->period]);
+            }
+        }
+
+        // 5. If all ≤ age vaccines are completed, find the next period > age
+        foreach ($vaccines as $vaccine) {
+            if ($vaccine->period > $ageInMonths && !in_array($vaccine->id, $completedVaccineIds)) {
+                return response()->json(['vaccine_id' => $vaccine->id, 'period' => $vaccine->period]);
+            }
+        }
+
+        // 6. If all are completed
+        return response()->json(['message' => 'All vaccines in this category are completed.'], 404);
+    }
+
 }

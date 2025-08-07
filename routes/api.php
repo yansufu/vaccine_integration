@@ -36,6 +36,8 @@ Route::get('/childByParent/{parent_id}', [ChildController::class, 'getByParent']
 
 Route::post('/parent/{parent}/children', [ChildController::class, 'store']);
 
+Route::get('/getRecommendedVaccinePeriod/{child_id}/{cat_id}', [VaccineController::class, 'getRecommendedVaccinePeriod']);
+
 Route::apiResource('provider', ProviderController::class);
 
 Route::apiResource('organization', OrganizationController::class);

@@ -27,7 +27,7 @@ class ParentController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'NIK' => 'required|string|max:255|unique:parent,NIK',
-            'email' => 'required|email|unique:parent,email',
+            'phone' => 'required|digits_between:10,15',
             'password' => 'required|string|max:255',
         ]);
 
@@ -39,7 +39,7 @@ class ParentController extends Controller
         $parent = Parents::create([
             'name' => $request->name,
             'NIK' => $request->NIK,
-            'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 

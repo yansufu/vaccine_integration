@@ -46,7 +46,6 @@ class VaccinationController extends Controller
                 'prov_id' => 'required|integer',
                 'lot_id' => 'required|string|max:255',
                 'notes' => 'nullable|string|max:255',
-                //'location' => 'nullable|string', 
             ]);
 
             if($validator->fails()){
@@ -69,9 +68,14 @@ class VaccinationController extends Controller
                 'notes' => $entry['notes'] ?? null,
                 //'location' => $request['location'] ?? null,
             ]);
+            $updated[] = $vaccination;
+
         }
 
-        return response()->json($vaccination, 200);
+        return response()->json([
+            'message' => 'Vaccination(s) updated successfully',
+            'data' => $updated
+        ], 200);
     }
 
 

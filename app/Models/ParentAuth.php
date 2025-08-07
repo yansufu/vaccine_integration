@@ -16,7 +16,7 @@ class ParentAuth extends Authenticatable implements CanResetPassword
     protected $fillable = [
         'name',
         'NIK',
-        'email',
+        'phone',
         'password',
     ];
 }

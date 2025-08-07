@@ -30,11 +30,11 @@ class ChildController extends Controller
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'gender' => 'string|max:255',
-            'NIK' => 'string|max:16',
-            'weight' => 'numeric',
-            'height' => 'numeric',
-            'medical_history' => 'string|max:500',
-            'allergy' => 'string|max:500',
+            'NIK' => 'nullable|string|max:16',
+            'weight' => 'nullable|numeric',
+            'height' => 'nullable|numeric',
+            'medical_history' => 'nullable|string|max:500',
+            'allergy' => 'nullable|string|max:500',
             'org_id' => 'integer|max:500',
         ]);
 
@@ -42,6 +42,10 @@ class ChildController extends Controller
             return response()->json(
             ['message' => 'invalid data format'], 422);
         };
+
+        if($request->NIK == '0'){
+            $request->NIK == null;
+        }
 
         $child = Children::create([
             'parent_id' => $parent_id,
@@ -93,12 +97,12 @@ class ChildController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'string|max:255',
             'date_of_birth' => 'date',
-            'NIK' => 'string|max:255',
+            'NIK' => 'nullable|string|max:255',
             'gender' => 'string|max:255',
-            'weight' => 'numeric',
-            'height' => 'numeric',
-            'medical_history' => 'string|max:500',
-            'allergy' => 'string|max:500',
+            'weight' => 'nullable|numeric',
+            'height' => 'nullable|numeric',
+            'medical_history' => 'nullable|string|max:500',
+            'allergy' => 'nullable|string|max:500',
             'org_id' => 'integer|max:500',
         ]);
 
@@ -207,6 +211,53 @@ class ChildController extends Controller
         return response()->json($vaccinationStatus, 200);
 
     }
+
+    public function getRecommendedPeriod($childId, $categoryId)
+    {
+        $child = Child::findOrFail($childId);
+        $ageInMonths = now()->diffInMonths(Carbon::parse($child->date_of_birth));
+
+        // Get all periods for this category
+        $allPeriods = Vaccines::where('cat_id', $categoryId)
+            ->orderBy('period')
+            ->pluck('period')
+            ->toArray();
+
+        // Get completed periods for this category
+        $completedPeriods = Vaccinations::where('child_id', $childId)
+            ->whereHas('vaccine', function ($query) use ($categoryId) {
+                $query->where('cat_id', $categoryId);
+            })
+            ->pluck('vaccine_id')
+            ->map(function ($vaccineId) {
+                return Vaccines::find($vaccineId)->period;
+            })
+            ->toArray();
+
+        // Step 1: Try to find uncompleted period <= current age
+        $lowerOrEqual = array_filter($allPeriods, fn($p) => $p <= $ageInMonths);
+        rsort($lowerOrEqual); // Descending
+        foreach ($lowerOrEqual as $p) {
+            if (!in_array($p, $completedPeriods)) {
+                $vaccine = Vaccines::where('cat_id', $categoryId)->where('period', $p)->first();
+                return response()->json($vaccine);
+            }
+        }
+
+        // Step 2: Try to find uncompleted period > current age
+        $higher = array_filter($allPeriods, fn($p) => $p > $ageInMonths);
+        sort($higher); // Ascending
+        foreach ($higher as $p) {
+            if (!in_array($p, $completedPeriods)) {
+                $vaccine = Vaccines::where('cat_id', $categoryId)->where('period', $p)->first();
+                return response()->json($vaccine);
+            }
+        }
+
+        // Step 3: All periods complete
+        return response()->json(['message' => 'All vaccine periods for this category are completed.'], 404);
+    }
+
     
 
 }

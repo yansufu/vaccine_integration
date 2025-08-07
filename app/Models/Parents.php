@@ -15,7 +15,7 @@ class Parents extends Model
     protected $fillable = [
         'name',
         'NIK',
-        'email',
+        'phone',
         'password',
     ];
         
