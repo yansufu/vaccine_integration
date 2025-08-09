@@ -19,6 +19,11 @@ class Vaccinations extends Model
     'location',
     'notes',
     'is_completed',
+    'event_id'
+    ];
+
+    protected $casts = [
+        'is_completed' => 'boolean',
     ];
 
     public function child()
@@ -34,6 +39,10 @@ class Vaccinations extends Model
     public function vaccine()
     {
         return $this->belongsTo(Vaccines::class, 'vaccine_id');
+    }
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 
 }

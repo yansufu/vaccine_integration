@@ -46,6 +46,7 @@ class VaccinationController extends Controller
                 'prov_id' => 'required|integer',
                 'lot_id' => 'required|string|max:255',
                 'notes' => 'nullable|string|max:255',
+                'event_id' => 'nullable|string|max:36',
             ]);
 
             if($validator->fails()){
@@ -66,6 +67,7 @@ class VaccinationController extends Controller
                 'lot_id' => $entry['lot_id'],
                 'prov_id' => $entry['prov_id'],
                 'notes' => $entry['notes'] ?? null,
+                'event_id' => $entry['event_id'] ?? null,
                 //'location' => $request['location'] ?? null,
             ]);
             $updated[] = $vaccination;
