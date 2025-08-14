@@ -6,6 +6,12 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+    protected function schedule(Schedule $schedule)
+    {
+        // Run every day at 9 AM
+        $schedule->command('vaccination:daily-reminders')->dailyAt('09:00');
+    }
+
     protected $middleware = [
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
